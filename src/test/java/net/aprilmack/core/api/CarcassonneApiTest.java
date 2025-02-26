@@ -92,6 +92,7 @@ class CarcassonneApiTest {
         assertThat(captor.getValue()).isEqualTo(cam);
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         tile10.rotateClockwise();
         assertThat(api.placeTile(tile10, 1, 0)).isTrue();
         api.scoreFeatures();
@@ -120,6 +121,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         tile10.rotateClockwise();
         assertThat(api.placeTile(tile10, 1, 0)).isTrue();
 
@@ -136,6 +138,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         assertThat(api.placeTile(tile10, 1, 0)).isFalse();
     }
 
@@ -146,6 +149,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         assertThat(api.placeTile(tile10, 1, 0)).isFalse();
 
         tile10.rotateClockwise();
@@ -157,6 +161,7 @@ class CarcassonneApiTest {
         api.addPlayer("cam", PlayerColor.RED);
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         TileSection tileSection = tile10.getTopSection();
 
         IllegalStateException exception = assertThrows(IllegalStateException.class,
@@ -171,6 +176,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         tile10.rotateClockwise();
 
         assertThat(api.placeTile(tile10, 1, 0)).isTrue();
@@ -189,6 +195,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         tile10.rotateClockwise();
         assertThat(api.placeTile(tile10, 1, 0)).isTrue();
 
@@ -196,6 +203,7 @@ class CarcassonneApiTest {
         api.nextTurn();
 
         Tile tile15 = tileManager.drawTileById(15);
+        api.changeTile(tile15);
         assertThat(api.placeTile(tile15, 2, 0)).isTrue();
 
         IllegalStateException exception = assertThrows(IllegalStateException.class,
@@ -210,6 +218,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         tile10.rotateClockwise();
         assertThat(api.placeTile(tile10, 1, 0)).isTrue();
         assertThat(api.placeMeeple(tile10, tile10.getLeftSection())).isTrue();
@@ -218,6 +227,7 @@ class CarcassonneApiTest {
         api.nextTurn();
 
         Tile tile15 = tileManager.drawTileById(15);
+        api.changeTile(tile15);
         assertThat(api.placeTile(tile15, 2, 0)).isTrue();
 
         assertThat(api.placeMeeple(tile15, tile15.getLeftSection())).isFalse();
@@ -230,6 +240,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile10 = tileManager.drawTileById(10);
+        api.changeTile(tile10);
         tile10.rotateClockwise();
         assertThat(api.placeTile(tile10, 1, 0)).isTrue();
         assertThat(api.placeMeeple(tile10, tile10.getLeftSection())).isTrue();
@@ -263,6 +274,7 @@ class CarcassonneApiTest {
         api.startGame();
 
         Tile tile20 = tileManager.drawTileById(20);
+        api.changeTile(tile20);
         tile20.rotateClockwise();
         tile20.rotateClockwise();
         assertThat(api.placeTile(tile20, 0, 1)).isTrue();
@@ -283,6 +295,7 @@ class CarcassonneApiTest {
         verify(handler).turnStarted(eq(cam), any());
 
         Tile tile20 = tileManager.drawTileById(20);
+        api.changeTile(tile20);
         tile20.rotateClockwise();
         tile20.rotateClockwise();
         assertThat(api.placeTile(tile20, 0, 1)).isTrue();

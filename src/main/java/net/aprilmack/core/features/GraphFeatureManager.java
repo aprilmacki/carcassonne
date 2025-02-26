@@ -42,7 +42,8 @@ public class GraphFeatureManager implements FeatureManager {
 
     @Override
     public boolean canPlaceMeeple(Tile tile, TileSection section) {
-        if (!isSupportedFeatureType(section.getType())) {
+        if (!isGraphFeatureType(section.getType())) {
+            // Ignore non-graph features
             return true;
         }
 
@@ -55,14 +56,13 @@ public class GraphFeatureManager implements FeatureManager {
 
     @Override
     public void scoreFeatures() {
-        // todo: very inefficient
         new HashSet<>(this.tileSectionToFeature.values()).forEach(GraphFeature::score);
     }
 
     private void updateFeaturesForEdges(Tile tile, int xPosition, int yPosition, Direction direction) {
         TileSection tileSection = tile.getSection(direction);
 
-        if (!isSupportedFeatureType(tileSection.getType())) {
+        if (!isGraphFeatureType(tileSection.getType())) {
             return;
         }
 
@@ -92,7 +92,7 @@ public class GraphFeatureManager implements FeatureManager {
         for (TileSection centerSection : tile.getCenterSections()) {
             GraphFeatureNode centerNode = new GraphFeatureNode(centerSection);
 
-            if (!isSupportedFeatureType(centerSection.getType())) {
+            if (!isGraphFeatureType(centerSection.getType())) {
                 continue;
             }
 
@@ -112,7 +112,7 @@ public class GraphFeatureManager implements FeatureManager {
                 connectedFeatures.add(adjacentFeature);
             }
 
-            if (connectedFeatures.size() == 0) {
+            if (connectedFeatures.isEmpty()) {
                 continue;
             }
 
@@ -166,7 +166,7 @@ public class GraphFeatureManager implements FeatureManager {
         feature.addNode(centerNode);
     }
 
-    private boolean isSupportedFeatureType(TileSectionType type) {
+    private boolean isGraphFeatureType(TileSectionType type) {
         return type == TileSectionType.CITY
                 || type == TileSectionType.ROAD;
     }

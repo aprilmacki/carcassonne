@@ -16,6 +16,8 @@ public class TestTileManager {
     }
 
     public Tile drawTileById(int id) {
+        // TODO: A better way would be to have a method to set the next tile.
+        // TODO: When CarcassonneApi calls drawTile, then it would return this.
         Tile tile = TestTileManager.createTileById(id);
         for (TileSection tileSection : tile.getSections().values()) {
             this.tileManager.addTileSectionMapping(tileSection, tile);

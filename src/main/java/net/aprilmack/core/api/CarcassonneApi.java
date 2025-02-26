@@ -180,4 +180,9 @@ public class CarcassonneApi {
             this.handlers.forEach(handler -> handler.scoreUpdate(player));
         }
     }
+
+    @TestOnly
+    public void changeTile(Tile tile) {
+        turnState = new TurnState(tile);
+    }
 }

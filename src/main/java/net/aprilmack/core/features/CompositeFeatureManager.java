@@ -37,7 +37,6 @@ public class CompositeFeatureManager implements FeatureManager {
 
     @Override
     public boolean canPlaceMeeple(Tile tile, TileSection section) {
-        // todo: improve this. too explicit. check with each feature manager instead
         if (section.getType() != TileSectionType.CITY
                 && section.getType() != TileSectionType.ROAD
                 && section.getType() != TileSectionType.MONASTERY) {
@@ -48,8 +47,15 @@ public class CompositeFeatureManager implements FeatureManager {
             return false;
         }
 
+        // We can only place meeple on a just-placed tile. This means effectively, there's just one meeple per tile
         for (TileSection anotherSection : tile.getSections().values()) {
             if (anotherSection.getMeeple().isPresent()) {
+                return false;
+            }
+        }
+
+        for (FeatureManager featureManager : featureManagers) {
+            if (!featureManager.canPlaceMeeple(tile, section)) {
                 return false;
             }
         }
